@@ -1,0 +1,7 @@
+node_modules/
+server/pos.db
+server/pos.db-*
+client/.nuxt/
+client/.output/
+client/node_modules/
+.DS_Store

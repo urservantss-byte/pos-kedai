@@ -1,0 +1,1 @@
+{"dependencies":{"better-sqlite3":"^12.4.0","cors":"^2.8.5","express":"^4.19.2"},"main":"index.js","name":"pos-kedai-server","private":true,"scripts":{"dev":"node --watch index.js","start":"node index.js"},"version":"1.0.0"}

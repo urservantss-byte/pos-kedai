@@ -1,0 +1,1 @@
+{"$schema":"https://railway.com/railway.schema.json","build":{"buildCommand":"npm install && npm run build","builder":"NIXPACKS"},"deploy":{"startCommand":"node .output/server/index.mjs"}}
