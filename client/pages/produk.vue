@@ -28,6 +28,10 @@
         <input v-model.number="form.price" required type="number" min="0" step="100" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-brand-500 dark:border-slate-700 dark:bg-slate-800" />
       </div>
       <div>
+        <label class="text-xs font-semibold text-slate-500">Stok (Porsi) *</label>
+        <input v-model.number="form.stock" required type="number" min="0" step="1" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-brand-500 dark:border-slate-700 dark:bg-slate-800" />
+      </div>
+      <div>
         <label class="text-xs font-semibold text-slate-500">Emoji / Ikon</label>
         <input v-model="form.emoji" type="text" placeholder="🍜" class="mt-1 w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm dark:border-slate-700 dark:bg-slate-800" />
       </div>
@@ -62,6 +66,7 @@
             <th class="px-4 py-3">Menu</th>
             <th class="px-4 py-3">Kategori</th>
             <th class="px-4 py-3">Harga</th>
+            <th class="px-4 py-3">Stok</th>
             <th class="px-4 py-3">Status</th>
             <th class="px-4 py-3 text-right">Aksi</th>
           </tr>
@@ -71,6 +76,14 @@
             <td class="px-4 py-3 font-medium">{{ p.emoji }} {{ p.name }}</td>
             <td class="px-4 py-3">{{ p.category }}</td>
             <td class="px-4 py-3">{{ formatRupiah(p.price) }}</td>
+            <td class="px-4 py-3">
+              <span
+                class="rounded-full px-2.5 py-1 text-xs font-semibold"
+                :class="p.stock < 5 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/40' : 'bg-slate-100 text-slate-600 dark:bg-slate-800'"
+              >
+                {{ p.stock }} porsi
+              </span>
+            </td>
             <td class="px-4 py-3">
               <button
                 class="rounded-full px-2.5 py-1 text-xs font-semibold"
@@ -103,7 +116,7 @@ const editing = ref(null);
 const formError = ref('');
 
 const emptyForm = () => ({
-  name: '', category: 'Bakso', price: 0, emoji: '🍽️',
+  name: '', category: 'Bakso', price: 0, emoji: '🍽️', stock: 20,
   image: '', description: '', has_spice_level: false, available: true,
 });
 const form = ref(emptyForm());
