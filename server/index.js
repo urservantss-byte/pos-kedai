@@ -6,6 +6,8 @@
  */
 const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
+const path = require('path');
 const { db, CATEGORIES } = require('./db');
 
 const app = express();
@@ -179,6 +181,19 @@ app.get('/api/dashboard', (req, res) => {
     recentOrders: recent,
   });
 });
+
+// ---------- Frontend statis (deploy satu service) ----------
+// Di Railway, hasil build Nuxt (client/.output/public) disajikan oleh
+// server ini juga, jadi cukup 1 service. Kalau folder build belum ada
+// (mis. dev lokal, frontend jalan di :3000), blok ini dilewati.
+const clientDir = path.join(__dirname, '..', 'client', '.output', 'public');
+if (fs.existsSync(clientDir)) {
+  app.use(express.static(clientDir));
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/api')) return next();
+    res.sendFile(path.join(clientDir, 'index.html'), (err) => { if (err) next(); });
+  });
+}
 
 app.listen(PORT, () => {
   console.log(`[pos-server] API jalan di http://localhost:${PORT}`);
